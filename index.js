@@ -8,6 +8,10 @@
  */
 function nesneyiTrimle(obj) {
   // ✨ kodlar buraya
+  for (const item in obj) {
+    obj[item] = obj[item].trim();
+  }
+  return obj;
 }
 
 /**
@@ -20,6 +24,8 @@ function nesneyiTrimle(obj) {
  */
 function verileniTrimle(obj, prop) {
   // ✨ kodlar buraya
+  obj[prop] = obj[prop].trim();
+  return obj;
 }
 
 /**
@@ -32,6 +38,8 @@ function verileniTrimle(obj, prop) {
  */
 function enBuyukTamsayiyiBul(tamsayilar) {
   // ✨ kodlar buraya
+  const maxNum = tamsayilar.sort((a,b) => b.tamsayi - a.tamsayi)[0].tamsayi;
+  return maxNum;
 }
 
 function Sayici(ilkSayi) {
@@ -57,6 +65,7 @@ function Sayici(ilkSayi) {
    */
   this.asagiSay = () => {
     // ✨ kodlar buraya
+    return this.ilkSayi === 0 ? 0 : this.ilkSayi--;
   }
 }
 
@@ -66,7 +75,8 @@ function Mevsimler() {
    */
 
   // ✨ gerekli propları ekleyin
-
+const mevsimler = ["yaz","sonbahar","kış","ilkbahar"];
+let mevsim = 0;
   /**
    * [Görev 5B] sonraki metodu bir sonraki mevsimi gösterir
    * @returns {string} - bir sonraki mevsim "yaz" olarak yüklenir
@@ -81,10 +91,12 @@ function Mevsimler() {
    */
   this.sonraki = () => {
     // ✨ kodlar buraya
-  }
+    mevsim %= 4;
+    return mevsimler[mevsim++];
+  };
 }
 
-function Araba(/*kodlar buraya */) {
+function Araba(isim, depo, kml) {
   /**
    * [Görev 6A] Araba 3 argüman alarak bir araba nesnesi oluşturur
    * @param {string} isim - arabanın ismi
@@ -95,6 +107,8 @@ function Araba(/*kodlar buraya */) {
     this.odometer = 0 // araba 0 kilometrede yüklenecek
     this.depo = depoBenzin // araba full depoyla yüklenecek
     // ✨ gerekli propları ekleyin
+    this.isim = isim;
+    this.kml = kml;
 
   
 
@@ -113,6 +127,11 @@ function Araba(/*kodlar buraya */) {
    */
   this.sur = (gidilecekyol) => {
     // ✨ kodlar buraya
+    let maxYol = depoBenzin * this.kml;
+    let gidilenyol = (this.odometer += gidilecekyol);
+    gidilenyol > maxYol ? (gidilenyol = maxYol) : (gidilenyol = gidilenyol);
+    this.depo -= gidilenyol /kml;
+    return gidilenyol;
   }
 
   /**
@@ -128,6 +147,9 @@ function Araba(/*kodlar buraya */) {
    */
   this.benzinal = (litre) => {
     // ✨ kodlar buraya
+    this.depo += litre;
+    this.depo > depoBenzin ? (this.depo = depoBenzin) : (this.depo = this.depo);
+    return this.kml * this.depo;
   }
 }
 
@@ -146,6 +168,16 @@ function Araba(/*kodlar buraya */) {
  */
 function asenkronCiftSayi(sayi) {
   // ✨ implement
+  const result = () => {
+    let evenOrOdd = false;
+    if (sayi % 2 == 0) {
+      evenOrOdd = true;
+    } else {
+      evenOrOdd = false;
+    }
+    return evenOrOdd;
+  };
+  return result(sayi);
 }
 
 module.exports = {
